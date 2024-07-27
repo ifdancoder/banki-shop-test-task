@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Parameter;
+use App\Models\ImageType;
 use App\Traits\APIReturnTrait;
 
 class ParameterService
@@ -97,13 +98,12 @@ class ParameterService
         if ($parameter->type == 1) {
             return;
         }
-        if (isset($data['icon'])) {
-            $icon = $data['icon'];
-            $parameter->storeImage($icon, 1);
-        }
-        if (isset($data['icon_gray'])) {
-            $icon = $data['icon_gray'];
-            $parameter->storeImage($icon, 2);
+        $imageTypes = ImageType::all();
+        foreach ($imageTypes as $imageType) {
+            if (isset($data[$imageType->title])) {
+                $icon = $data[$imageType->title];
+                $parameter->storeImage($icon, $imageType->id);
+            }
         }
     }
 }
