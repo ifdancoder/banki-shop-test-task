@@ -39,7 +39,6 @@ class UpdateParameterRequest extends FormRequest
             'image' => 'Иконка должна быть изображением',
             'type.exists' => 'Тип параметра должен быть 1 или 2',
             'title.string' => 'Заголовок должен быть строкой',
-            'required' => 'Поле :attribute обязательно для заполнения',
         ];
     }
 

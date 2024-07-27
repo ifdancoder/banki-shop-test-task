@@ -11,13 +11,13 @@ class ParameterService
     
     public function get($id)
     {
-        $parameter = Parameter::find($id);
+        $parameter = Parameter::where('id', $id)->get();
 
         if (!$parameter) {
             return;
         }
 
-        return $parameter;
+        return $parameter->first();
     }
 
     public function getAll($data)
@@ -48,6 +48,25 @@ class ParameterService
         }
 
         return $parameter->delete();
+    }
+
+    public function deleteImage($id, $data)
+    {
+        $parameter = $this->get($id);
+        
+        $image_type = $data['type'];
+
+        if (!$parameter) {
+            return;
+        }
+
+        $result = $parameter->deleteImage($image_type);
+
+        if (!$result) {
+            return;
+        }
+
+        return $parameter;
     }
 
     public function create($data)

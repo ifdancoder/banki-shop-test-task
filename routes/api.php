@@ -9,3 +9,4 @@ Route::get('/parameters/{id}', [ParameterController::class, 'show']);
 Route::post('/parameters', [ParameterController::class, 'create']);
 Route::post('/parameters/{id}/update', [ParameterController::class, 'update']);
 Route::delete('/parameters/{id}', [ParameterController::class, 'delete']);
+Route::delete('/parameters/{id}/images', [ParameterController::class, 'deleteImage']);

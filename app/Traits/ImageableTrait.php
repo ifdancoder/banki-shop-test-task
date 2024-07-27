@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Models\Image;
+use App\Models\ImageType;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
@@ -38,9 +39,15 @@ trait ImageableTrait
         chmod(Storage::path($image->getPathToSave()), 0644);
     }
 
-    public function imageByType($type)
+    public function imageByTypeId($type)
     {
         return $this->morphOne(Image::class, 'imageable')->where('type', $type);
+    }
+
+    public function imageByType($type)
+    {
+        $typeId = ImageType::where('title', $type)->first()->id;
+        return $this->imageByTypeId($typeId);
     }
 
     public function delete() {
@@ -49,6 +56,11 @@ trait ImageableTrait
         }
         parent::delete();
 
+        return 1;
+    }
+
+    public function deleteImage($type) {
+        $this->imageByType($type)->delete();
         return 1;
     }
 }

@@ -14,11 +14,11 @@ return new class extends Migration
     {
         Schema::create('image_types', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('title')->unique();
         });
         DB::table('image_types')->insert([
             ['title' => 'icon'],
-            ['title' => 'icon gray'],
+            ['title' => 'icon_gray'],
         ]);
     }
 
